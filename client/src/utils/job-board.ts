@@ -80,7 +80,11 @@ function populateItem(item: HTMLElement, posting: LeverPosting): void {
   if (copy) copy.textContent = postingCopy(posting);
 
   const url = posting.hostedUrl || posting.applyUrl;
-  if (url) item.dataset.jobUrl = url;
+  if (!url || !(item instanceof HTMLAnchorElement)) return;
+
+  item.href = url;
+  item.target = '_blank';
+  item.rel = 'noopener noreferrer';
 }
 
 export class JobBoardController {
